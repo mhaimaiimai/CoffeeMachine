@@ -59,7 +59,7 @@ def check_resources(coffee):
 def coin_process():
     """return total amount of money being inserted"""
     total_money = 0
-    print("Please inser coins.")
+    print("Please insert coins.")
     for coin in coins:
         coin_amount = int(input(f"how many {coin}s?: "))
         total_money += coin_amount*coins[coin]
