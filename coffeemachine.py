@@ -53,8 +53,8 @@ def check_resources(coffee):
     for item in resources:
         if item in MENU[coffee]["ingredients"]:
             if resources[item] < MENU[coffee]["ingredients"][item]:
-                return 0
-    return 1              
+                return False
+    return True             
 
 def coin_process():
     """return total amount of money being inserted"""
@@ -90,11 +90,15 @@ while(not is_off):
     elif request == "report":
         print_report()
     elif request in ["espresso", "latte", "cappuccino"]:
-        check_resources(request)
-        is_transaction_valid = transaction_process(request, coin_process())
-        if is_transaction_valid:
-            update_resources(request)
-            print("Here is your {request}. Enjoy!")
+        is_resources_valid = check_resources(request)
+        if is_resources_valid: 
+            is_transaction_valid = transaction_process(request, coin_process())
+            if is_transaction_valid:
+                update_resources(request)
+                print("Here is your {request}. Enjoy!")
+        else:
+            print("Resources are not sufficient, please order other menu.")
+                
     else:
         print("Invalid request, please try again.")
         
